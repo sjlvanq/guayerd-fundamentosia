@@ -1,23 +1,19 @@
 ```mermaid
 flowchart TD
 
-%% --- INICIO Y CONFIGURACIÓN ---
-A[Inicio] --> B[Definir constante DOC_FILENAME]
-B --> C[Inicializar listaSecciones vacía]
-C --> D[esPrimerTitulo Verdadero]
-D --> E[nivelObjetivo 2]
-
-%% --- BLOQUE DE LECTURA DE ARCHIVO ---
-E --> F{Existe archivo DOC_FILENAME}
+%% --- INICIO y BLOQUE DE LECTURA DE ARCHIVO ---
+A[Inicio] --> F{Existe archivo DOC_FILENAME}
 F -->|No| G[Mostrar mensaje: Fichero no encontrado]
 G --> H[Fin del programa]
 F -->|Sí| I[Leer archivo línea por línea]
 
 I --> J{Línea es título y nivel igual al objetivo}
+
 J -->|Sí| K{esPrimerTitulo es Falso}
 K -->|Sí| L[Agregar sección anterior a listaSecciones]
 K -->|No| M[esPrimerTitulo ← Falso]
 L --> N[Guardar nuevo título y nivel]
+
 M --> N
 N --> O[Inicializar contenidoActual con salto de línea]
 J -->|No y no esPrimerTitulo| P[Agregar línea al contenidoActual]
