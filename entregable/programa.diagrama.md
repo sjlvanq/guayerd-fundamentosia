@@ -1,3 +1,5 @@
+```mermaid
+
 flowchart TD
 
 %% --- INICIO Y CONFIGURACIÓN ---
@@ -43,3 +45,4 @@ Z --> S
 
 %% --- FIN ---
 H[Fin]
+```
