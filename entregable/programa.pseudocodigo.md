@@ -1,3 +1,4 @@
+```
 CONSTANTE DOC_FILENAME ← "documentacion.md"
 
 FUNCIÓN esTitulo(linea)
@@ -77,3 +78,4 @@ INICIO PROGRAMA PRINCIPAL
     FIN MIENTRAS
 
 FIN PROGRAMA
+```
