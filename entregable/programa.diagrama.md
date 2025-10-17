@@ -1,44 +1,39 @@
 ```mermaid
 flowchart TD
 
-%% --- INICIO y BLOQUE DE LECTURA DE ARCHIVO ---
-A[Inicio] --> F{Existe archivo DOC_FILENAME}
-F -->|No| G[Mostrar mensaje: Fichero no encontrado]
-G --> H[Fin del programa]
-F -->|Sí| I[Leer archivo línea por línea]
+%% --- INICIO Y BLOQUE DE LECTURA DE ARCHIVO ---
+INI((Inicio)) --> EXISTEARCHIVO{El fichero documentacion.md existe}
+EXISTEARCHIVO -->|No| SALIDA1[/"Fichero no encontrado"/]
+SALIDA1 --> FIN((Fin del programa))
+EXISTEARCHIVO -->|Sí| LECTURAARCHIVO[Leer línea del fichero documentacion.md]
 
-I --> J{Línea es título y nivel igual al objetivo}
+LECTURAARCHIVO --> ULTIMALINEA{¿Se ha llegado al final del fichero?}
+ULTIMALINEA -->|No| LINEAESTITULO{¿Línea es un título de nivel 2?}
 
-J -->|Sí| K{esPrimerTitulo es Falso}
-K -->|Sí| L[Agregar sección anterior a listaSecciones]
-K -->|No| M[esPrimerTitulo ← Falso]
-L --> N[Guardar nuevo título y nivel]
+LINEAESTITULO -->|Sí| PRIMERTITULO{¿Es el primer título?}
+PRIMERTITULO -->|Sí| INITSECCION[Inicializar nueva sección y marcar que ya no es el primer título]
+PRIMERTITULO -->|No| AGREGAANTERIOR[Agregar sección anterior a la lista structured_content]
+AGREGAANTERIOR --> INITSECCION
+INITSECCION --> LECTURAARCHIVO
 
-M --> N
-N --> O[Inicializar contenidoActual con salto de línea]
-J -->|No y no esPrimerTitulo| P[Agregar línea al contenidoActual]
-J -->|No y esPrimerTitulo| I
-P --> I
-I -->|Fin de archivo| Q[Agregar última sección a listaSecciones]
+LINEAESTITULO -->|No| CONTENIDOSECCION{¿Ya se procesó el primer título?}
+CONTENIDOSECCION -->|Sí| ACUMULACONTENIDO[Agregar línea al contenido de la sección actual]
+ACUMULACONTENIDO --> LECTURAARCHIVO
+CONTENIDOSECCION -->|No| LECTURAARCHIVO
 
-%% --- MENÚ PRINCIPAL ---
-Q --> R[opcion ← -1]
-R --> S[Mostrar menú con títulos numerados]
-S --> T[Mostrar opción 0: Terminar programa]
-T --> U[Leer opción del usuario]
+ULTIMALINEA -->|Sí| AGREGAFINAL[Agregar última sección procesada a structured_content]
 
-%% --- SELECCIÓN DE OPCIÓN ---
-U --> V{La opción es un número válido}
-V -->|No| W[Mostrar Opción inválida]
-W --> S
-V -->|Sí| X{opcion = 0}
-X -->|Sí| H
-X -->|No| Y{opcion dentro del rango válido}
-Y -->|No| W
-Y -->|Sí| Z[Mostrar título y contenido de la sección seleccionada]
-Z --> S
+AGREGAFINAL --> MOSTRARMENU[/Mostrar menú con títulos disponibles como opciones numeradas/]
 
-%% --- FIN ---
-H[Fin]
+%% --- BLOQUE DE MENÚ ---
+MOSTRARMENU --> INPUTOPCION[/Leer opción del usuario/]
+INPUTOPCION --> OPCIONCERO{¿Opción == 0?}
+OPCIONCERO -->|Sí| FIN
+OPCIONCERO -->|No| OPCIONVALIDA{¿Opción válida?}
+OPCIONVALIDA -->|Sí| MOSTRARSECCION[/Mostrar título y contenido de la sección/]
+MOSTRARSECCION --> MOSTRARMENU
+OPCIONVALIDA -->|No| MSGINVALIDA[/''Opción inválida''/]
+MSGINVALIDA --> MOSTRARMENU
+
 
 ```
