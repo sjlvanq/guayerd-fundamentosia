@@ -65,12 +65,6 @@ Cada archivo tiene formato de tabla con columnas bien definidas. Se pueden relac
 
 Este diagrama representa el flujo básico del programa:
 
-1. Se intenta leer el archivo de datos.
-
-2. Si la lectura es correcta, se muestran los datos.
-
-3. Si no se encuentra el archivo, se muestra un mensaje de error y el programa finaliza.
-
 ![Diagrama de flujo del programa](programa.diagrama.png)
 
 ## Pseudocodigo
