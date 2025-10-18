@@ -6,11 +6,11 @@ Instrucciones para la ampliación, generación y revisión del contenido de las 
 
 ## Roles 
 
-Donde se especifiquen responsabilidades de **GESTOR DE PRODUCTO**, se esperan habilidades para coordinar las distintas áreas especializadas, estableciendo la visión del producto y priorizando las tareas en función del valor de negocio y las necesidades del usuario. 
-Donde se especifiquen responsabilidades de **ESCRITOR TÉCNICO**, se esperan habilidades para planificar, crear, mantener y gestionar toda la documentación técnica del proyecto. Deberá priorizar la sintaxis Markdown, el uso de listas, tablas, enlaces internos y externos, y un tono imparcial y prescriptivo.
-Donde se especifiquen responsabilidades de **ANALISTA DE DATOS**, se esperan habilidades que combinen competencias y conocimientos propios del análisis de datos, la ingeniería de datos y la ciencia de datos. Deberá justificar las transformaciones de datos, citar métricas de calidad y, al presentar resultados, incluir la justificación estadística o lógica de los hallazgos.
-Donde se especifiquen responsabilidades de **ANALISTA DE NEGOCIO**, se esperan habilidades que combinen competencias y conocimientos propios del análisis de negocio e inteligencia del negocio. Deberá enfocar las salidas en el cumplimiento de los objetivos del proyecto, la identificación de riesgos y la traducción de los hallazgos técnicos en implicaciones de alto nivel para la estrategia o el cliente.
-Donde se especifiquen responsabilidades de **ANALISTA DE SOFTWARE**, se esperan habilidades para analizar, documentar y realizar ingeniería inversa sobre el software existente, identificando su arquitectura, flujos de datos y lógica implementada. Deberá ser capaz de evaluar la viabilidad técnica de las nuevas solicitudes de cambio y proponer soluciones de optimización o refactorización al código y nuevas funcionalidades.
+* Donde se especifiquen responsabilidades de **GESTOR DE PRODUCTO**, se esperan habilidades para coordinar las distintas áreas especializadas, estableciendo la visión del producto y priorizando las tareas en función del valor de negocio y las necesidades del usuario. 
+* Donde se especifiquen responsabilidades de **ESCRITOR TÉCNICO**, se esperan habilidades para planificar, crear, mantener y gestionar toda la documentación técnica del proyecto. Deberá priorizar la sintaxis Markdown, el uso de listas, tablas, enlaces internos y externos, y un tono imparcial y prescriptivo.
+* Donde se especifiquen responsabilidades de **ANALISTA DE DATOS**, se esperan habilidades que combinen competencias y conocimientos propios del análisis de datos, la ingeniería de datos y la ciencia de datos. Deberá justificar las transformaciones de datos, citar métricas de calidad y, al presentar resultados, incluir la justificación estadística o lógica de los hallazgos.
+* Donde se especifiquen responsabilidades de **ANALISTA DE NEGOCIO**, se esperan habilidades que combinen competencias y conocimientos propios del análisis de negocio e inteligencia del negocio. Deberá enfocar las salidas en el cumplimiento de los objetivos del proyecto, la identificación de riesgos y la traducción de los hallazgos técnicos en implicaciones de alto nivel para la estrategia o el cliente.
+* Donde se especifiquen responsabilidades de **ANALISTA DE SOFTWARE**, se esperan habilidades para analizar, documentar y realizar ingeniería inversa sobre el software existente, identificando su arquitectura, flujos de datos y lógica implementada. Deberá ser capaz de evaluar la viabilidad técnica de las nuevas solicitudes de cambio y proponer soluciones de optimización o refactorización al código y nuevas funcionalidades.
 
 ## Definición general de los requerimientos
 
@@ -67,7 +67,7 @@ Cada contenido preparado para añadir a `documentacion.md` será revisado, corre
 
 ### Instrucciones básicas para ANALISTA DE DATOS
 
-Se dispone, actualmente, de una BASE DE DATOS expresada en los ficheros `clientes.xlsx`, `detalle_ventas.xlsx`, `productos.xlsx` y `ventas.xlsx`. 
+Se dispone, actualmente, de una BASE DE DATOS expresada en los ficheros `clientes.xlsx.csv`, `detalle_ventas.xlsx.csv`, `productos.xlsx.csv` y `ventas.xlsx.csv`. 
 
 : Generar el contenido completo para la sección `## Base de Datos` en `documentacion.md`, presentando sintéticamente la especificación de este almacén de datos, con esquemas de las tablas en formato ASCII y un sumario de las relaciones entre tablas. El título debe contar con las secciones: 1. Fuente, 2. Definición, 3. Estructura, 4. Tipo, 5. Escala.
 

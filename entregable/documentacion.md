@@ -1,7 +1,6 @@
 # Tienda Aurelion
 
 ### Índice
-
 - [Tema](#tema)
 - [Problema](#problema)
 - [Solución](#solución)
@@ -12,187 +11,96 @@
 - [Ejecutar programa](#ejecutar-programa)
 
 ## Tema
-
-Sistema de visualización y análisis de datos comerciales para la gestión eficiente de ventas y productos en Tienda Aurelion.
+Tienda Aurelion es una tienda de mediana o pequeña escala que busca optimizar la gestión y análisis de su información comercial mediante una herramienta visual interactiva basada en archivos Markdown.
 
 ## Problema
-
-**Contexto actual:**
-- Múltiples fuentes de datos comerciales dispersas
-- Ausencia de herramientas de visualización integrada
-- Dificultad para identificar patrones de compra
-- Limitaciones en el análisis de comportamiento de clientes
-- Complejidad en el seguimiento de productos más vendidos
+Actualmente, la tienda carece de una herramienta visual que facilite la consulta estructurada de documentación y datos, dificultando la labor de análisis de negocio y datos, así como la consulta técnica y operativa del software.
 
 ## Solución
-
-Sistema integrado de visualización que:
-
-1. **Procesamiento de Datos**
-   - Integra las tablas relacionales del negocio
-   - Unifica la información en una estructura coherente
-   - Procesa datos de ventas, clientes y productos
-
-2. **Funcionalidades Principales**
-   - Visualización de métricas clave de negocio
-   - Generación de reportes personalizados
-   - Análisis de patrones de compra
-   - Seguimiento de productos destacados
-   - Identificación de clientes frecuentes
-
-3. **Beneficios**
-   - Toma de decisiones basada en datos
-   - Mejora en la gestión de inventario
-   - Optimización de estrategias de venta
-   - Seguimiento efectivo del rendimiento comercial
+Se desarrolla un software que presenta el contenido de la documentación en formato Markdown a través de un menú interactivo en consola. El usuario puede navegar por las distintas secciones del documento y consultar información relevante de manera estructurada y accesible.
 
 ## Base de Datos
+### 1. Fuente
+Los datos provienen de archivos CSV generados a partir de hojas de cálculo: `clientes.xlsx.csv`, `productos.xlsx.csv`, `ventas.xlsx.csv` y `detalle_ventas.xlsx.csv`.
 
-1. Fuente
+### 2. Definición
+La base de datos almacena información sobre clientes, productos, ventas y el detalle de cada venta. Permite analizar el comportamiento comercial, la relación entre clientes y productos, y la trazabilidad de las operaciones.
 
-Los datos han sido extraídos del sistema interno de gestión de ventas de la Tienda Aurelion. La información se actualiza diariamente mediante procesos automatizados que garantizan la integridad y consistencia de los datos.
+**Relaciones principales:**
+- Cada venta (`ventas`) está asociada a un cliente (`clientes`).
+- Cada venta puede tener uno o más detalles de venta (`detalle_ventas`), que a su vez referencian productos (`productos`).
 
-2. Definición
-
-El modelo de datos está compuesto por cuatro tablas principales interrelacionadas:
-
+### 3. Estructura
+**Tabla: clientes**
 ```
-VENTAS
-+------------+--------------+-----------+----------------+-------+------------+
-| id_venta   | fecha        | id_cliente| nombre_cliente| email | medio_pago |
-+------------+--------------+-----------+----------------+-------+------------+
-  (PK)          DATETIME      (FK)                                ENUM
-
-DETALLE_VENTAS
-+------------+-------------+----------------+----------+----------------+---------+
-| id_venta   | id_producto | nombre_producto| cantidad | precio_unitario| importe |
-+------------+-------------+----------------+----------+----------------+---------+
-  (FK)         (FK)                          INT        DECIMAL         DECIMAL
-
-PRODUCTOS
-+------------+----------------+------------+----------------+
-| id_producto| nombre_producto| categoria  | precio_unitario|
-+------------+----------------+------------+----------------+
-  (PK)                         VARCHAR      DECIMAL
-
-CLIENTES
-+------------+----------------+-------+--------+------------+
-| id_cliente | nombre_cliente | email | ciudad | fecha_alta |
-+------------+----------------+-------+--------+------------+
-  (PK)                                          DATETIME
++------------+-------------------+--------------------------+-------------+------------+
+| id_cliente | nombre_cliente    | email                    | ciudad      | fecha_alta |
++------------+-------------------+--------------------------+-------------+------------+
 ```
 
-3. Estructura
+**Tabla: productos**
+```
++-------------+------------------------+-----------+----------------+
+| id_producto | nombre_producto        | categoria | precio_unitario|
++-------------+------------------------+-----------+----------------+
+```
 
-- Integridad referencial garantizada mediante claves primarias (PK) y foráneas (FK)
-- Normalización: Las tablas cumplen con la Tercera Forma Normal (3NF)
-- Índices optimizados en campos de búsqueda frecuente
-- Tasas de nulidad < 0.1% en campos críticos
-- Unicidad garantizada en identificadores
+**Tabla: ventas**
+```
++----------+------------+------------+-------------------+--------------------------+-------------+
+| id_venta | fecha      | id_cliente | nombre_cliente    | email                    | medio_pago  |
++----------+------------+------------+-------------------+--------------------------+-------------+
+```
 
-4. Tipo
+**Tabla: detalle_ventas**
+```
++----------+-------------+------------------------+----------+----------------+---------+
+| id_venta | id_producto | nombre_producto        | cantidad | precio_unitario| importe |
++----------+-------------+------------------------+----------+----------------+---------+
+```
 
-Clasificación de campos por naturaleza y dominio:
+### 4. Tipo
+- Almacén de datos tabular, estructurado en archivos CSV.
+- Relaciones de tipo 1:N entre clientes y ventas, y entre ventas y detalle_ventas.
+- Integridad referencial basada en claves primarias y foráneas (id_cliente, id_venta, id_producto).
 
-| Tabla          | Numéricos       | Categóricos     | Temporales |
-|----------------|-----------------|-----------------|------------|
-| Ventas         | id_venta       | medio_pago      | fecha      |
-| Detalle_ventas | cantidad, precio| nombre_producto | -          |
-| Productos      | precio_unitario | categoria       | -          |
-| Clientes       | id_cliente     | ciudad          | fecha_alta |
-
-5. Escala
-
-Métricas de volumen y calidad:
-
-- **Cardinalidad**: 
-  * Ventas: ~10,000 registros/mes
-  * Productos: ~1,000 items activos
-  * Clientes: ~5,000 registros
-  * Detalle_ventas: ~50,000 registros/mes
-
-- **Completitud**: >99.9% en campos obligatorios
-- **Precisión**: 100% en cálculos monetarios
-- **Consistencia**: Validación cruzada entre tablas relacionadas
+### 5. Escala
+- 100 clientes
+- 100 productos
+- 120 ventas
+- Más de 500 registros en detalle_ventas
+- Calidad: Sin valores nulos en claves principales, formato consistente, relaciones completas entre tablas.
 
 ## Pasos
-
-El programa sigue las siguientes etapas lógicas de ejecución:
-
-1. **Inicialización y Verificación**
-   - Verifica la existencia del archivo documentacion.md
-   - Inicializa las estructuras de datos necesarias para almacenar el contenido
-
-2. **Lectura y Procesamiento del Documento**
-   - Lee el archivo línea por línea
-   - Identifica títulos de nivel 2 (marcados con ##)
-   - Procesa y almacena el contenido de cada sección
-
-3. **Estructuración del Contenido**
-   - Organiza el contenido en secciones
-   - Asocia cada título con su contenido correspondiente
-   - Mantiene el orden original del documento
-
-4. **Presentación del Menú Interactivo**
-   - Muestra las secciones disponibles como opciones numeradas
-   - Incluye una opción para salir del programa
-
-5. **Gestión de Interacción**
-   - Captura la selección del usuario
-   - Valida la entrada para asegurar que sea una opción válida
-   - Maneja posibles errores de entrada
-
-6. **Visualización de Contenido**
-   - Muestra el título seleccionado con formato destacado
-   - Presenta el contenido de la sección elegida
-   - Retorna al menú principal para nuevas selecciones
+1. Verificación de existencia del archivo de documentación.
+2. Lectura y procesamiento del archivo, identificando títulos de nivel 2 como secciones principales.
+3. Estructuración del contenido en una lista de secciones con título, nivel y contenido.
+4. Presentación de un menú interactivo en consola, mostrando las secciones disponibles.
+5. Recepción y validación de la opción seleccionada por el usuario.
+6. Visualización del contenido de la sección elegida, con formato destacado para el título.
+7. Repetición del menú hasta que el usuario decida finalizar el programa.
 
 ## Diagrama de flujo
-
-Este diagrama representa el flujo básico del programa, dividido en dos bloques principales:
-1. El bloque de lectura y procesamiento del archivo, que maneja la carga y estructuración del contenido
-2. El bloque de menú interactivo, que gestiona la interacción con el usuario
-
-El diagrama utiliza la notación estándar de diagramas de flujo donde:
-- Los óvalos representan inicio/fin
-- Los rombos representan decisiones
-- Los rectángulos representan procesos
-- Los paralelogramos representan entrada/salida de datos
-
 ![Diagrama de flujo del programa](programa.diagrama.png)
+El diagrama ilustra el flujo principal del programa: desde la verificación del archivo, la lectura y estructuración de secciones, hasta la interacción con el usuario mediante el menú y la visualización de contenidos.
 
 ## Pseudocodigo
-
-El pseudocódigo describe la lógica del programa en un lenguaje natural estructurado, facilitando la comprensión del algoritmo sin atarse a una sintaxis específica de programación. 
-
-Los conceptos clave implementados son:
-- Manejo de archivos y excepciones
-- Estructuras de control de flujo (bucles y condicionales)
-- Estructuras de datos (listas y diccionarios)
-- Formateo de texto para la interfaz de usuario
-
 [Ver pseudocodigo](programa.pseudocodigo.md)
+El pseudocódigo describe la lógica implementada en el programa, facilitando la comprensión de su funcionamiento y la relación entre las distintas etapas del flujo.
 
 ## Ejecutar programa
+Para ejecutar el programa, siga estos pasos:
 
-Para ejecutar el programa se requiere:
-
-1. Requisitos del sistema:
-   - Python 3.6 o superior
-   - Sistema operativo: Linux, Windows o macOS
-   - Terminal o línea de comandos
-
-2. Preparación:
-   - Asegurar que el archivo documentacion.md existe en el mismo directorio que programa.py
-   - Verificar permisos de lectura en documentacion.md
-
-3. Ejecución:
+1. Asegúrese de tener instalado Python 3.6 o superior en su sistema.
+2. Coloque el archivo `programa.py` y el archivo `documentacion.md` en el mismo directorio.
+3. Abra una terminal y navegue hasta el directorio del proyecto.
+4. Ejecute el siguiente comando:
    ```bash
    python3 programa.py
    ```
+5. Siga las instrucciones en pantalla para seleccionar y visualizar las secciones del documento.
 
-4. Uso:
-   - Seleccionar una opción del menú ingresando el número correspondiente
-   - Presionar Enter para confirmar la selección
-   - Para salir, seleccionar la opción 0
-
+**Notas:**
+- No se requieren dependencias externas.
+- El programa está diseñado para ejecutarse en sistemas Linux, pero es compatible con cualquier sistema que disponga de Python 3.
+- Si el archivo `documentacion.md` no existe, el programa mostrará un mensaje de error y finalizará.
